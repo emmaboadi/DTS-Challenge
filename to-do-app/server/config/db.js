@@ -13,7 +13,7 @@ dotenv.config({ path: join(__dirname, '../../.env') });
 const connectDB = async () => {
   try {
     // MongoDB connection string
-    const mongoURI = process.env.MONGODB_URI;
+    const mongoURI ='mongodb+srv://dts:beLieVe12345@cluster0.1tchh7r.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
     
     if (!mongoURI) {
       console.error('MONGODB_URI is not defined in environment variables');

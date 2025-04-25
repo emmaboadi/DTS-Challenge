@@ -23,11 +23,16 @@ function TaskList() {
   };
 
   const handleDelete = async (id) => {
-    try {
-      await axios.delete(`http://localhost:5000/api/tasks/${id}`);
-      fetchTasks();
-    } catch (error) {
-      console.error('Error deleting task:', error);
+    // Add confirmation dialog
+    const isConfirmed = window.confirm('Are you sure you want to delete this task?');
+    
+    if (isConfirmed) {
+      try {
+        await axios.delete(`http://localhost:5000/api/tasks/${id}`);
+        fetchTasks();
+      } catch (error) {
+        console.error('Error deleting task:', error);
+      }
     }
   };
 

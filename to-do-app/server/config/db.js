@@ -1,15 +1,27 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+
+// Get the directory name of the current module
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+// Load environment variables from the root .env file
+dotenv.config({ path: join(__dirname, '../../.env') });
 
 const connectDB = async () => {
   try {
-    // Replace the following with your MongoDB Atlas connection string
-    // Format: mongodb+srv://<username>:<password>@cluster0.xxxxx.mongodb.net/todo-app?retryWrites=true&w=majority
-    const mongoURI = process.env.MONGODB_URI || 'YOUR_CONNECTION_STRING_HERE';
+    // MongoDB connection string
+    const mongoURI = process.env.MONGODB_URI;
     
-    await mongoose.connect(mongoURI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    if (!mongoURI) {
+      console.error('MONGODB_URI is not defined in environment variables');
+      console.log('Please create a .env file in the root directory with your MongoDB connection string');
+      process.exit(1);
+    }
+    
+    await mongoose.connect(mongoURI);
     
     console.log('MongoDB connected successfully');
   } catch (error) {
@@ -18,4 +30,4 @@ const connectDB = async () => {
   }
 };
 
-module.exports = connectDB; 
+export default connectDB; 

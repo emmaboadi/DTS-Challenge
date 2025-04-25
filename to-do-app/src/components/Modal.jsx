@@ -1,13 +1,15 @@
 import { useEffect, useRef } from 'react';
+import { Modal as BootstrapModal } from 'bootstrap';
 
 export default function Modal({ isOpen, onClose, children }) {
   const modalRef = useRef(null);
+  const modalInstance = useRef(null);
 
   useEffect(() => {
     if (isOpen && modalRef.current) {
       // Initialize Bootstrap modal
-      const modal = new window.bootstrap.Modal(modalRef.current);
-      modal.show();
+      modalInstance.current = new BootstrapModal(modalRef.current);
+      modalInstance.current.show();
 
       // Add event listener for when modal is hidden
       const handleHidden = () => {
@@ -19,7 +21,7 @@ export default function Modal({ isOpen, onClose, children }) {
       return () => {
         if (modalRef.current) {
           modalRef.current.removeEventListener('hidden.bs.modal', handleHidden);
-          modal.hide();
+          modalInstance.current?.hide();
         }
       };
     }

@@ -5,7 +5,7 @@ export default function TaskForm({ isOpen, onClose, taskId = null, onTaskSaved }
   const [task, setTask] = useState({
     title: '',
     description: '',
-    status: 'pending',
+    status: 'not-started',
     dueDate: '',
   });
 
@@ -16,7 +16,7 @@ export default function TaskForm({ isOpen, onClose, taskId = null, onTaskSaved }
       setTask({
         title: '',
         description: '',
-        status: 'pending',
+        status: 'not-started',
         dueDate: '',
       });
     }
@@ -111,9 +111,9 @@ export default function TaskForm({ isOpen, onClose, taskId = null, onTaskSaved }
               onChange={handleChange}
               className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             >
-              <option value="pending">Pending</option>
+              <option value="not-started">Not Started</option>
               <option value="in-progress">In Progress</option>
-              <option value="completed">Completed</option>
+              <option value="completed">Completed</option>  
             </select>
           </div>
         </div>

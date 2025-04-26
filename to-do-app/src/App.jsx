@@ -1,13 +1,13 @@
-import Navbar from './components/Navbar';
 import TaskList from './components/TaskList';
+import Navbar from './components/Navbar';
 
 function App() {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-100">
       <Navbar />
-      <main className="container mx-auto px-4 py-8">
+      <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <TaskList />
-      </main>
+      </div>
     </div>
   );
 }

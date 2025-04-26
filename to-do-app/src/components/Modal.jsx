@@ -8,7 +8,11 @@ export default function Modal({ isOpen, onClose, children }) {
   useEffect(() => {
     if (isOpen && modalRef.current) {
       // Initialize Bootstrap modal
-      modalInstance.current = new BootstrapModal(modalRef.current);
+      modalInstance.current = new BootstrapModal(modalRef.current, {
+        backdrop: 'static', // Prevent closing by clicking backdrop
+        keyboard: false,    // Prevent closing with Esc
+        focus: true,
+      });
       modalInstance.current.show();
 
       // Add event listener for when modal is hidden
@@ -19,11 +23,25 @@ export default function Modal({ isOpen, onClose, children }) {
       modalRef.current.addEventListener('hidden.bs.modal', handleHidden);
 
       return () => {
+        // Remove event listener and hide modal
         if (modalRef.current) {
           modalRef.current.removeEventListener('hidden.bs.modal', handleHidden);
-          modalInstance.current?.hide();
         }
+        // Hide the modal if it's still open
+        if (modalInstance.current) {
+          modalInstance.current.hide();
+        }
+        // Remove any leftover Bootstrap backdrops
+        document.querySelectorAll('.modal-backdrop').forEach((el) => el.remove());
+        document.body.classList.remove('modal-open');
+        document.body.style = '';
       };
+    }
+    // If modal is not open, ensure cleanup
+    if (!isOpen) {
+      document.querySelectorAll('.modal-backdrop').forEach((el) => el.remove());
+      document.body.classList.remove('modal-open');
+      document.body.style = '';
     }
   }, [isOpen, onClose]);
 
@@ -32,10 +50,12 @@ export default function Modal({ isOpen, onClose, children }) {
   return (
     <div 
       ref={modalRef}
-      className="modal fade" 
+      className="modal fade show" // Add 'show' to ensure modal is visible
       tabIndex="-1" 
       aria-labelledby="taskModalLabel" 
-      aria-hidden="true"
+      aria-modal="true"
+      role="dialog"
+      style={{ display: 'block' }} // Ensure modal is displayed
     >
       <div className="modal-dialog">
         <div className="modal-content">

@@ -154,3 +154,11 @@ npm test
 3. Commit your changes
 4. Push to the branch
 5. Create a new Pull Request
+
+## How to Page Looks Like-Screenshot
+<img width="1280" alt="Screenshot 2025-04-26 at 1 46 06 pm" src="https://github.com/user-attachments/assets/5030ca67-fb31-41ca-b7b4-13f7f3dea869" />
+
+## Video
+https://github.com/user-attachments/assets/73273ad2-dff4-4aa9-8825-62a501ff1553
+
+
